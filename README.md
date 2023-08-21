@@ -12,7 +12,7 @@
 * **Product D** Assets tracker using iBeacons (Stickers)
 * **Product E** Radar-Based, Simultaneous Human Presence Detection and Breathing Rate Estimation (Wall Mounting)
 * **Product F** User and Admin Dashboard (Front-end & Back-end)
-* **Product G** Mobile Device Manangement Agent App.
+* **Product G** Mobile Device Management Agent App.
 
 ## _Motivation_
 
@@ -28,12 +28,17 @@ In conclusion, with the increasing flexibility in the work culture, it is import
 
 ## _Roadmap_
 
+This repository will focus only on **Product A**, the Attendance Management System For Employees (Wall Mounting).
+Here is a list of milestones and tasks related to each version release.
+
+
+
+
+<!-- 
 ### Attendance Management System For Employees
 
 #### Human body induction awakening of advertising screen
 People automatically turn it on, no one automatically sleeps and saves electricity, and information delivery is more accurate and efficient.
-
-<!-- 
 ### _Need_
 1. Monitoring of people in confined and risky environments.
 2. Size of industrial facilities with a single control centre.
