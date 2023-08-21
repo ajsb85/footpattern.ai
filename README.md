@@ -28,11 +28,20 @@ In conclusion, with the increasing flexibility in the work culture, it is import
 
 ## _Roadmap_
 
-This repository will focus only on **Product A**, the Attendance Management System For Employees (Wall Mounting).
+This repository will focus only on the Attendance Management System For Employees (Wall Mounting) amd the Indoor Positioning ID badges with iBeacons (Badge Holder).
+
 Here is a list of milestones and tasks related to each version release.
 
+## [Version 0.1](https://github.com/ajsb85/footpattern.ai/milestone/1) :fishsticks:
 
+- [ ] [Product Website (Marketing and Presentation)](https://github.com/ajsb85/footpattern.ai/issues/1) :globe_with_meridians: 
 
+# Progress
+
+# Contact
+
+![WeChat](https://raw.githubusercontent.com/ajsb85/vane.ai/main/press/contact-dark.png#gh-dark-mode-only)
+![WeChat](https://raw.githubusercontent.com/ajsb85/vane.ai/main/press/contact-light.png#gh-light-mode-only)
 
 <!-- 
 ### Attendance Management System For Employees
