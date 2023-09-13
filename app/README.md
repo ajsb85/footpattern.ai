@@ -65,7 +65,12 @@ Follow these steps to run the application locally on your machine.
    ```bash
    git clone https://github.com/your-username/employee-attendance-app.git
    
-2. Running the App
+ 
+### Running the App
 
-    ```bash
-    flutter clean
+1. Before running the app, it's a good practice to clean the project to ensure a fresh build:
+
+      ```bash
+      flutter clean
+
+
