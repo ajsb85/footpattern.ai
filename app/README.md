@@ -1,4 +1,4 @@
-![Logo](./press-kit/logo.png)
+![Logo](../press-kit/logo.png)
 
 # _Footpattern AI_
 
