@@ -69,7 +69,7 @@ Follow these steps to run the application locally on your machine.
    
    Before running the app, it's a good practice to clean the project to ensure a fresh build:
     ```bash
-    flutter clean
+    git clone https://github.com/your-username/employee-attendance-app.git
 
    Next, fetch and update the project dependencies specified in the pubspec.yaml file:
     ```bash
