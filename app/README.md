@@ -73,4 +73,15 @@ Follow these steps to run the application locally on your machine.
       ```bash
       flutter clean
 
+2. Next, fetch and update the project dependencies specified in the pubspec.yaml file:
+
+      ```bash
+      flutter pub get
+
+3. You can run the Employee Attendance App on either an emulator or a physical device.
+   
+     ```bash
+      flutter run
+   
+
 
