@@ -2,7 +2,7 @@
 ![Logo](./press-kit/logo.png)
 # _Footpattern _
 
-The **_Footpattern** is a powerful and user-friendly mobile application designed to streamline attendance management for both employees and employers. This Flutter-based application leverages the capabilities of Supabase as its backend database, providing a reliable and efficient solution for tracking and managing employee attendance.
+The **_Footpattern** is an application designed to streamline attendance management for both employees and employers. This Flutter-based application leverages the capabilities of Supabase as its backend database, providing a reliable and efficient solution for tracking and managing employee attendance.
 
 ## Table of Contents
 
@@ -34,17 +34,13 @@ We chose to build this application using Flutter and Supabase for several reason
 
 - **Supabase**: Supabase serves as the backbone of our app, providing a secure and scalable database solution. Supabase's real-time features ensure that attendance data is always up to date and accessible from anywhere. Its authentication and authorization features guarantee data privacy and security.
 
+- **Real-time Updates**: We've integrated real-time attendance tracking and updates, ensuring that data is always up to date and accessible.
+
+- **Geolocation Integration**: Employees can now verify their check-ins and check-outs using geolocation features, adding an extra layer of accuracy and security to attendance tracking.
+ 
 ## Challenges and Future Features
 
-While developing the **Employee Attendance App**, we encountered various challenges, including:
-
-- **Real-time Updates**: Implementing real-time attendance tracking and updates required careful planning and execution. We overcame this challenge by leveraging Supabase's real-time features.
-
-- **Security**: Ensuring data security was a top priority. We implemented robust authentication and authorization mechanisms to protect user data.
-
-In the future, we have exciting plans to enhance the app further, including:
-
-- **Geolocation Integration**: Adding geolocation features to verify employee check-ins and check-outs.
+While developing the **footpattern**, we encountered various challenges, including:
 
 - **Push Notifications**: Implementing push notifications to remind employees of their upcoming shifts and to provide status updates.
 
