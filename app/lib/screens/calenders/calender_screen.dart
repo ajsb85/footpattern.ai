@@ -3,11 +3,12 @@
 // found in the LICENSE file.
 
 import 'package:employee_flutter/models/attendance_model.dart';
-import 'package:employee_flutter/models/departement_model.dart';
+
 import 'package:employee_flutter/services/attendance_service.dart';
-import 'package:employee_flutter/services/auth_service.dart';
+
 import 'package:employee_flutter/services/db_service.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_month_year_picker/simple_month_year_picker.dart';
@@ -19,12 +20,13 @@ const Widget divider = SizedBox(height: 10);
 // be displayed in a row.
 const double narrowScreenWidthThreshold = 100;
 TextEditingController nameController = TextEditingController();
-
+    late final GraphQLClient graphQLClient ;
 class ColorPalettesScreen extends StatelessWidget {
   const ColorPalettesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+
      final attendanceService = Provider.of<AttendanceService>(context);
     TextEditingController nameController = TextEditingController();
     final dbService = Provider.of<DbService>(context);
@@ -43,7 +45,7 @@ class ColorPalettesScreen extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   margin: const EdgeInsets.only(left: 20, top: 60, bottom: 10),
                   child: const Text(
-                    "My Attendance",
+                    "All Attendances",
                     style: TextStyle(fontSize: 25),
                   ),
                 ),
@@ -77,7 +79,7 @@ class ColorPalettesScreen extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 margin: const EdgeInsets.only(left: 20, top: 60, bottom: 10),
                 child: const Text(
-                  "My Attendance",
+                  "All Attendances",
                   style: TextStyle(fontSize: 25),
                 ),
               ),

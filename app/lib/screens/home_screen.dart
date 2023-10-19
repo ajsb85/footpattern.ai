@@ -3,11 +3,19 @@
 // found in the LICENSE file.
 
 import 'package:employee_flutter/constants.dart';
-import 'package:employee_flutter/screens/attendance_screen.dart';
-import 'package:employee_flutter/screens/biomteric_screen.dart';
-import 'package:employee_flutter/screens/calender_screen.dart';
-import 'package:employee_flutter/screens/profile_screen.dart';
+import 'package:employee_flutter/screens/NavigationBar/constant.dart';
+import 'package:employee_flutter/screens/NavigationDrawer/NavigationDrawer_Screen.dart';
+import 'package:employee_flutter/screens/NavigationBar/NavigationBar_Screen.dart';
+import 'package:employee_flutter/screens/attendances/attendance_screen.dart';
+import 'package:employee_flutter/screens/bluetooth/BleOffScreen.dart';
+import 'package:employee_flutter/screens/bluetooth/FindDevicesScreen.dart';
+import 'package:employee_flutter/screens/calenders/calender_screen.dart';
+import 'package:employee_flutter/screens/users/profile_screen.dart';
+import 'package:employee_flutter/screens/users/users_screen.dart';
+import 'package:employee_flutter/services/db_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:get/get.dart';
 
 // import 'color_palettes_screen.dart';
 // import 'component_screen.dart';
@@ -43,6 +51,12 @@ class Home extends StatefulWidget {
   @override
   State<Home> createState() => _HomeState();
 }
+DbService dbService = DbService();
+
+Future<bool> isAdmin() async {
+  final admin = await dbService.checkAdminStatus();
+  return admin; // Assuming 'true' means admin and 'false' means non-admin
+}
 
 class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -53,9 +67,10 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   bool showLargeSizeLayout = false;
 
   int screenIndex = ScreenSelected.component.value;
+  late Future<bool> admin;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     controller = AnimationController(
       duration: Duration(milliseconds: transitionLength.toInt() * 2),
@@ -66,44 +81,15 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
       parent: controller,
       curve: const Interval(0.5, 1.0),
     );
+
+    // Fetch the admin status in initState
+    admin = isAdmin();
   }
 
   @override
   void dispose() {
     controller.dispose();
     super.dispose();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    final double width = MediaQuery.of(context).size.width;
-    final AnimationStatus status = controller.status;
-    if (width > mediumWidthBreakpoint) {
-      if (width > largeWidthBreakpoint) {
-        showMediumSizeLayout = false;
-        showLargeSizeLayout = true;
-      } else {
-        showMediumSizeLayout = true;
-        showLargeSizeLayout = false;
-      }
-      if (status != AnimationStatus.forward &&
-          status != AnimationStatus.completed) {
-        controller.forward();
-      }
-    } else {
-      showMediumSizeLayout = false;
-      showLargeSizeLayout = false;
-      if (status != AnimationStatus.reverse &&
-          status != AnimationStatus.dismissed) {
-        controller.reverse();
-      }
-    }
-    if (!controllerInitialized) {
-      controllerInitialized = true;
-      controller.value = width > mediumWidthBreakpoint ? 1 : 0;
-    }
   }
 
   void handleScreenChanged(int screenSelected) {
@@ -113,97 +99,144 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   Widget createScreenFor(
-      ScreenSelected screenSelected, bool showNavBarExample) {
-    switch (screenSelected) {
-      case ScreenSelected.component:
-        return const ColorPalettesScreen();
-      case ScreenSelected.color:
-        return Expanded(
-          child: OneTwoTransition(
-            animation: railAnimation,
-            one: FirstComponentList(
+      ScreenSelected screenSelected, bool showNavBarExample, bool isAdmin) {
+    if (isAdmin) {
+      switch (screenSelected) {
+        case ScreenSelected.users:
+          return const UserScreen();
+        case ScreenSelected.component:
+          return Expanded(
+            child: StreamBuilder<BluetoothAdapterState>(
+              stream: FlutterBluePlus.adapterState,
+              initialData: BluetoothAdapterState.unknown,
+              builder: (c, snapshot) {
+                final adapterState = snapshot.data;
+                if (adapterState == BluetoothAdapterState.on) {
+                  return const FindDevicesScreen();
+                } else {
+                  FlutterBluePlus.stopScan();
+                  return BluetoothOffScreen(adapterState: adapterState);
+                }
+              },
+            ),
+          );
+        case ScreenSelected.typography:
+          return const ColorPalettesScreen();
+        // case ScreenSelected.color:
+        //   return const ProfileScreen();
+      }
+    } else {
+      switch (screenSelected) {
+        case ScreenSelected.users:
+          return const ColorPalettesScreen();
+        case ScreenSelected.component:
+          return Expanded(
+            child: OneTwoTransition(
+              animation: railAnimation,
+              one: FirstComponentList(
                 showNavBottomBar: showNavBarExample,
                 scaffoldKey: scaffoldKey,
-                showSecondList: showMediumSizeLayout || showLargeSizeLayout),
-            two: SecondComponentList(
-              scaffoldKey: scaffoldKey,
+                showSecondList: showMediumSizeLayout || showLargeSizeLayout,
+              ),
+              two: SecondComponentList(
+                scaffoldKey: scaffoldKey,
+              ),
             ),
-          ),
-        );
-
-      case ScreenSelected.typography:
-        return const ProfileScreen();
-       
+          );
+        case ScreenSelected.typography:
+          return const ProfileScreen();
+        // case ScreenSelected.color:
+          // return const ProfileScreen();
+      }
     }
   }
 
-// Create App Bar
   PreferredSizeWidget createAppBar() {
     return AppBar(
-      title: const Text('Employees Check'),
+      title: Image.asset(
+        'lib/assets/logo.png',
+        width: 60,
+        height: 60,
+      ),
+      
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (context, child) {
-        return NavigationTransition(
-          scaffoldKey: scaffoldKey,
-          animationController: controller,
-          railAnimation: railAnimation,
-          appBar: createAppBar(),
-          body: createScreenFor(
-              ScreenSelected.values[screenIndex], controller.value == 1),
-          navigationRail: NavigationRail(
-            extended: showLargeSizeLayout,
-            destinations: navRailDestinations,
-            selectedIndex: screenIndex,
-            onDestinationSelected: (index) {
-              setState(() {
-                screenIndex = index;
-                handleScreenChanged(screenIndex);
-              });
+    return FutureBuilder<bool>(
+      future: admin,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          final adminValue = snapshot.data ?? false;
+          return AnimatedBuilder(
+            animation: controller,
+            builder: (context, child) {
+              return NavigationTransition(
+                scaffoldKey: scaffoldKey,
+                animationController: controller,
+                railAnimation: railAnimation,
+                appBar: createAppBar(),
+                body: createScreenFor(
+                  ScreenSelected.values[screenIndex],
+                  controller.value == 1,
+                  adminValue,
+                ),
+                navigationRail: NavigationRail(
+                  extended: showLargeSizeLayout,
+                  destinations: navRailDestinations,
+                  selectedIndex: screenIndex,
+                  onDestinationSelected: (index) {
+                    setState(() {
+                      screenIndex = index;
+                      handleScreenChanged(screenIndex);
+                    });
+                  },
+                  trailing: Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: showLargeSizeLayout
+                          ? _ExpandedTrailingActions(
+                              useLightMode: widget.useLightMode,
+                              handleBrightnessChange:
+                                  widget.handleBrightnessChange,
+                              useMaterial3: widget.useMaterial3,
+                              handleMaterialVersionChange:
+                                  widget.handleMaterialVersionChange,
+                              handleImageSelect: widget.handleImageSelect,
+                              handleColorSelect: widget.handleColorSelect,
+                              colorSelectionMethod: widget.colorSelectionMethod,
+                              imageSelected: widget.imageSelected,
+                              colorSelected: widget.colorSelected,
+                            )
+                          : Text(''),
+                    ),
+                  ),
+                ),
+                navigationBar: NavigationBars(
+                  onSelectItem: (index) {
+                    setState(() {
+                      screenIndex = index;
+                      handleScreenChanged(screenIndex);
+                    });
+                  },
+                  selectedIndex: screenIndex,
+                  isExampleBar: false,
+                ),
+              );
             },
-            trailing: Expanded(
-              child: Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: showLargeSizeLayout
-                      ? _ExpandedTrailingActions(
-                          useLightMode: widget.useLightMode,
-                          handleBrightnessChange: widget.handleBrightnessChange,
-                          useMaterial3: widget.useMaterial3,
-                          handleMaterialVersionChange:
-                              widget.handleMaterialVersionChange,
-                          handleImageSelect: widget.handleImageSelect,
-                          handleColorSelect: widget.handleColorSelect,
-                          colorSelectionMethod: widget.colorSelectionMethod,
-                          imageSelected: widget.imageSelected,
-                          colorSelected: widget.colorSelected,
-                        )
-                      : Text('')),
-            ),
-          ),
-          navigationBar: NavigationBars(
-            onSelectItem: (index) {
-              setState(() {
-                screenIndex = index;
-                handleScreenChanged(screenIndex);
-              });
-            },
-            selectedIndex: screenIndex,
-            isExampleBar: false,
-          ),
-        );
+          );
+        } else {
+          return Center(
+            child:
+                CircularProgressIndicator(), // Show a loading indicator while fetching the admin status.
+          );
+        }
       },
     );
   }
 }
 
-//icon button of dark
-
-//icon button of color
 
 class _ExpandedTrailingActions extends StatelessWidget {
   const _ExpandedTrailingActions({
@@ -239,13 +272,7 @@ class _ExpandedTrailingActions extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          
-          
-         
-         
-         
-        ],
+        children: [],
       ),
     );
     return screenHeight > 740

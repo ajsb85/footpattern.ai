@@ -20,7 +20,7 @@ class AuthService extends ChangeNotifier {
   }
 
   Future registerEmployee(
-      String email, String password, BuildContext context) async {
+      String email, String password,String name, BuildContext context) async {
     try {
       setIsLoading = true;
       if (email == "" || password == "") {
@@ -29,7 +29,7 @@ class AuthService extends ChangeNotifier {
       final AuthResponse response =
           await _supabase.auth.signUp(email: email, password: password);
       if (response != null) {
-        await _dbService.insertNewUser(email, response.user!.id);
+        await _dbService.insertNewUser(email,name, response.user!.id);
 
         Utils.showSnackBar("Successfully registered !", context,
             color: Colors.green);
@@ -62,7 +62,8 @@ class AuthService extends ChangeNotifier {
     await _supabase.auth.signOut();
     notifyListeners();
   }
-   static Future<bool> authenticateUser() async {
+
+  static Future<bool> authenticateUser() async {
     //initialize Local Authentication plugin.
     final LocalAuthentication _localAuthentication = LocalAuthentication();
 
@@ -82,7 +83,7 @@ class AuthService extends ChangeNotifier {
       try {
         isAuthenticated = await _localAuthentication.authenticate(
           localizedReason: 'To continue, you must complete the biometrics',
-           options: const AuthenticationOptions(
+          options: const AuthenticationOptions(
             stickyAuth: true,
             biometricOnly: true,
           ),

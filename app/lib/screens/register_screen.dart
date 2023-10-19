@@ -1,4 +1,5 @@
 import 'package:employee_flutter/services/auth_service.dart';
+import 'package:employee_flutter/utils/utilis.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,15 +13,20 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-
+    final Map<String, dynamic> attendanceFilter = {
+      // Define your filter criteria here, for example:
+      'id': {'_eq': 123}, // Delete the attendance record with ID 123.
+    };
+    const int atMost = 3;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.indigo,
         elevation: 0,
       ),
       resizeToAvoidBottomInset: false,
@@ -30,22 +36,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
             height: screenHeight / 4,
             width: screenWidth,
             decoration: const BoxDecoration(
-                color: Colors.redAccent,
+                color: Colors.indigo,
                 borderRadius:
                     BorderRadius.only(bottomRight: Radius.circular(70))),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(
-                  Icons.qr_code_scanner,
-                  color: Colors.white,
-                  size: 80,
-                ),
+              children:  [
+               Image.asset(
+                'lib/assets/logo.png',
+                width: 80,
+                height: 80,
+               ),
                 SizedBox(
                   height: 20,
                 ),
                 Text(
-                  "FAANG",
+                  "FootPattern",
                   style: TextStyle(
                       fontSize: 25,
                       color: Colors.white,
@@ -82,6 +88,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   obscureText: true,
                 ),
                 const SizedBox(
+                  height: 20,
+                ),
+                TextField(
+                  decoration: const InputDecoration(
+                    label: Text("Name"),
+                    prefixIcon: Icon(Icons.face),
+                    border: OutlineInputBorder(),
+                  ),
+                  controller: _nameController,
+                 
+                ),
+                const SizedBox(
                   height: 30,
                 ),
                 Consumer<AuthService>(
@@ -94,19 +112,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: CircularProgressIndicator(),
                             )
                           : ElevatedButton(
-                              onPressed: () {
-                                authServiceProvider.registerEmployee(
-                                    _emailController.text.trim(),
-                                    _passwordController.text.trim(),
-                                    context);
+                             onPressed: () {
+                                final email = _emailController.text.trim();
+                                final password =
+                                    _passwordController.text.trim();
+                                    final name =
+                                    _nameController.text.trim();
+
+
+                                if (email.isEmpty || password.isEmpty|| name.isEmpty) {
+                                      Utils.showSnackBar(
+                                      "Email and password are required.",
+                                      context,
+                                      color: Colors.red);
+                                } else {
+                                  authServiceProvider.registerEmployee(
+                                      email, password,name,context);
+                                }
                               },
+
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.redAccent,
+                                  backgroundColor: Colors.indigo,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30))),
                               child: const Text(
                                 "REGISTER",
-                                style: TextStyle(fontSize: 20),
+                                style: TextStyle(fontSize: 20,color: Colors.white),
                               ),
                             ),
                     );

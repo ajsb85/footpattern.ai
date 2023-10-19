@@ -8,6 +8,7 @@ Future<bool> isAdmin() async {
   final admin = await dbService.checkAdminStatus();
   return admin; // Assuming 'true' means admin and 'false' means non-admin
 }
+
 class NavigationBars extends StatefulWidget {
   const NavigationBars({
     Key? key,
@@ -40,7 +41,7 @@ class _NavigationBarsState extends State<NavigationBars> {
   void initializeDestinations() async {
     final admin = await isAdmin();
     setState(() {
-      appBarDestinations = true
+      appBarDestinations = admin
           ? [
               NavigationDestination(
                 tooltip: '',

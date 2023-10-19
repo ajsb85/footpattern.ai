@@ -14,7 +14,8 @@ class AttendanceModel {
       this.checkOut,
       required this.createdAt,
       this.checkInLocation,
-      this.checkOutLocation});
+      this.checkOutLocation, 
+     });
 
   factory AttendanceModel.fromJson(Map<String, dynamic> data) {
     return AttendanceModel(
