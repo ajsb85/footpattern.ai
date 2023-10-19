@@ -66,7 +66,7 @@ mutation insetNewUser (\$UserEmail : String ,\$UserName: String \$UserId : UUID 
       employee_id:\$employee,
       departement : 1 ,
       numero : 0 ,
-      Admin : false 
+      Admin : false
       }
     ]
   )
@@ -269,7 +269,7 @@ mutation insetNewUser (\$UserEmail : String ,\$UserName: String \$UserId : UUID 
               email
               Admin
               numero
-            
+
             }
           }
         }
