@@ -4,15 +4,15 @@ class EmployeeModel {
   final String email;
   final String numero;
   final bool admin;
-  // int? department; 
-  EmployeeModel({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.numero,
-    required this.admin
-    // this.department,
-  });
+  // int? department;
+  EmployeeModel(
+      {required this.id,
+      required this.name,
+      required this.email,
+      required this.numero,
+      required this.admin
+      // this.department,
+      });
 
   // GraphQL serialization
   Map<String, dynamic> toJson() {
@@ -20,9 +20,9 @@ class EmployeeModel {
       'id': id,
       'name': name,
       'email': email,
-      'numero':numero,
-      'Admin':admin
- 
+      'numero': numero,
+      'Admin': admin
+
       // 'department': department,
     };
   }
@@ -30,13 +30,13 @@ class EmployeeModel {
   // Factory method to deserialize data from GraphQL
   factory EmployeeModel.fromJson(Map<String, dynamic> data) {
     return EmployeeModel(
-      id: data['id'],
-      name: data['name'],
-      email: data['email'],
-      numero: data['numero'],
-      admin:data['Admin']
-      // department:
-      //     data['department'],
-    );
+        id: data['id'],
+        name: data['name'],
+        email: data['email'],
+        numero: data['numero'],
+        admin: data['Admin']
+        // department:
+        //     data['department'],
+        );
   }
 }

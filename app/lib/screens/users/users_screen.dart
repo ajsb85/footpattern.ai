@@ -68,7 +68,6 @@ class _UserScreenState extends State<UserScreen> {
                       shrinkWrap: true,
                       itemCount: employeeList.length,
                       itemBuilder: (context, index) {
-                          
                         final employee = employeeList[index];
                         return Card(
                           elevation: 8.2,
@@ -102,24 +101,26 @@ class _UserScreenState extends State<UserScreen> {
                               ),
                               subtitle: const Row(
                                 children: [
-                                 
-                                    Expanded(
-                        flex: 4,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 10.0),
-                          child: Text("employee", style: TextStyle(color: Colors.white),),
-                        ),
-                      ),
+                                  Expanded(
+                                    flex: 4,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 10.0),
+                                      child: Text(
+                                        "employee",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
                                 ],
                               ),
                               trailing: const Icon(Icons.keyboard_arrow_right,
                                   color: Colors.white, size: 30.0),
-                                    onTap: () {
+                              onTap: () {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
-                                     DetailPage(employee: employee),
+                                          DetailPage(employee: employee),
                                     ));
                               },
                             ),

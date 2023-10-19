@@ -54,10 +54,10 @@ enum ColorImageProvider {
   final String label;
   final String url;
 }
+
 bool isAdmin = true;
 
 enum ScreenSelected {
-  
   users(1),
   component(0),
   typography(2),
@@ -65,18 +65,15 @@ enum ScreenSelected {
 
   ;
 
-  
- 
-
   const ScreenSelected(this.value);
   final int value;
 }
+
 enum ScreenSelected2 {
   users(0),
   component(3),
   color(1),
   typography(2),
-
   ;
 
   const ScreenSelected2(this.value);

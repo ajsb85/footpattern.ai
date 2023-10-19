@@ -1,4 +1,3 @@
-
 import 'package:employee_flutter/screens/register_screen.dart';
 import 'package:employee_flutter/services/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -33,11 +32,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     BorderRadius.only(bottomRight: Radius.circular(70))),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children:  [
-                Image.asset('lib/assets/logo.png',
-                height: 80,
-                width: 80),
-
+              children: [
+                Image.asset('lib/assets/logo.png', height: 80, width: 80),
                 SizedBox(
                   height: 20,
                 ),
@@ -103,13 +99,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                       borderRadius: BorderRadius.circular(30))),
                               child: const Text(
                                 "LOGIN",
-                                style: TextStyle(fontSize: 20,color: Colors.white70),
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white70),
                               ),
                             ),
                     );
                   },
                 ),
-             
                 const SizedBox(
                   height: 20,
                 ),

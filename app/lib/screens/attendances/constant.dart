@@ -15,6 +15,7 @@ enum IconLabel {
 }
 
 enum Sizes { extraSmall, small, medium, large, extraLarge }
+
 enum Calendar { day, week, month, year }
 
 enum ColorLabel {

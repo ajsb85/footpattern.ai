@@ -257,7 +257,7 @@ class _AccessPointTile extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 String wifiPassword = _textEditingController.text;
-                String SSID = title ; 
+                String SSID = title;
                 writeWifiConfig(wifiPassword, SSID,
                     context); // Call the callback with SSID as a placeholder
                 Navigator.of(context).pop(); // Close the dialog
@@ -270,8 +270,6 @@ class _AccessPointTile extends StatelessWidget {
     );
   }
 }
-
-
 
 void kShowSnackBar(BuildContext context, String message) {
   if (kDebugMode) print(message);

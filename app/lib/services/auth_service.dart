@@ -20,7 +20,7 @@ class AuthService extends ChangeNotifier {
   }
 
   Future registerEmployee(
-      String email, String password,String name, BuildContext context) async {
+      String email, String password, String name, BuildContext context) async {
     try {
       setIsLoading = true;
       if (email == "" || password == "") {
@@ -29,7 +29,7 @@ class AuthService extends ChangeNotifier {
       final AuthResponse response =
           await _supabase.auth.signUp(email: email, password: password);
       if (response != null) {
-        await _dbService.insertNewUser(email,name, response.user!.id);
+        await _dbService.insertNewUser(email, name, response.user!.id);
 
         Utils.showSnackBar("Successfully registered !", context,
             color: Colors.green);

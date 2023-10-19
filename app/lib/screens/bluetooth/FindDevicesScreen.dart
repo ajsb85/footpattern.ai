@@ -13,10 +13,7 @@ final snackBarKeyC = GlobalKey<ScaffoldMessengerState>();
 final Map<DeviceIdentifier, ValueNotifier<bool>> isConnectingOrDisconnecting =
     {};
 
-
-
-
-  //Find Devices Screen 
+//Find Devices Screen
 class FindDevicesScreen extends StatefulWidget {
   const FindDevicesScreen({Key? key}) : super(key: key);
 
@@ -153,4 +150,3 @@ class _FindDevicesScreenState extends State<FindDevicesScreen> {
     );
   }
 }
-

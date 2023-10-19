@@ -1,11 +1,9 @@
-
 import 'package:employee_flutter/screens/splach_screen.dart';
 import 'package:employee_flutter/services/attendance_service.dart';
 import 'package:employee_flutter/services/auth_service.dart';
 import 'package:employee_flutter/services/db_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -16,8 +14,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dotenv.load();
-
- 
 
   String supabaseUrl = dotenv.env['SUPABASE_URL'] ?? '';
   String supabaseKey = dotenv.env['SUPABASE_KEY'] ?? '';
@@ -86,14 +82,11 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
- 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-            create: (context) => AuthService()),
+        ChangeNotifierProvider(create: (context) => AuthService()),
         ChangeNotifierProvider(create: (context) => DbService()),
-        ChangeNotifierProvider(
-            create: (context) => AttendanceService()),
+        ChangeNotifierProvider(create: (context) => AttendanceService()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

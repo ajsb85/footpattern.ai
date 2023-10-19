@@ -14,7 +14,7 @@ const List<ExampleDestination> destinations = <ExampleDestination>[
   ExampleDestination(
       'Favorites', Icon(Icons.favorite_outline), Icon(Icons.favorite)),
   ExampleDestination('Trash', Icon(Icons.delete_outline), Icon(Icons.delete)),
-   ExampleDestination('LogOut', Icon(Icons.logout_outlined), Icon(Icons.logout)),
+  ExampleDestination('LogOut', Icon(Icons.logout_outlined), Icon(Icons.logout)),
 ];
 
 const List<ExampleDestination> labelDestinations = <ExampleDestination>[
