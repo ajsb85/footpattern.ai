@@ -1,4 +1,3 @@
-
 import 'package:employee_flutter/models/employee_model.dart';
 import 'package:employee_flutter/screens/home_screen.dart';
 import 'package:employee_flutter/screens/splach_screen.dart';
@@ -8,9 +7,8 @@ import 'package:employee_flutter/utils/utilis.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class DetailPage extends StatefulWidget {
-final EmployeeModel employee;
+  final EmployeeModel employee;
 
   DetailPage({required this.employee});
 
@@ -20,15 +18,12 @@ final EmployeeModel employee;
 
 class _DetailPageState extends State<DetailPage> {
   bool isObscurePassword = true;
-   TextEditingController nameController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-    TextEditingController numberController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
   @override
   void initState() {
-    
     super.initState();
-
-
   }
 
   @override
@@ -47,7 +42,7 @@ class _DetailPageState extends State<DetailPage> {
               color: Colors.black,
             ),
             onPressed: () {
-               Navigator.push(
+              Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const UserScreen(),
@@ -57,7 +52,8 @@ class _DetailPageState extends State<DetailPage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  dbService.deleteEmployee(id,context);           },
+                  dbService.deleteEmployee(id, context);
+                },
                 icon: const Icon(Icons.delete, color: Colors.black))
           ],
         ),
@@ -109,34 +105,32 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
                 SizedBox(height: 30),
-                buildTextField("Full Name",nameController, fullName, false),
-                buildTextField("Email", emailController,email, false),
-                 buildTextField("Number", numberController, numero as String, false),
-               
+                buildTextField("Full Name", nameController, fullName, false),
+                buildTextField("Email", emailController, email, false),
+                buildTextField(
+                    "Number", numberController, numero as String, false),
                 SizedBox(height: 30),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      OutlinedButton(onPressed: (){
-         final admin=   dbService. checkAdminStatus();
-         if (admin == true) {
-           print('leith is admin');
-         }
-         else {
-          print('leith is not admin');
-         }
-        
-
-                      }, 
-                      child: Text("CANCEL",style:TextStyle(
-                        fontSize: 15,
-                        letterSpacing: 2,
-                        color:Colors.black
-                      )),
-                      style: OutlinedButton.styleFrom(
-                        padding:EdgeInsets.symmetric(horizontal: 50),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
-                      ),
+                      OutlinedButton(
+                        onPressed: () {
+                          final admin = dbService.checkAdminStatus();
+                          if (admin == true) {
+                            print('leith is admin');
+                          } else {
+                            print('leith is not admin');
+                          }
+                        },
+                        child: Text("CANCEL",
+                            style: TextStyle(
+                                fontSize: 15,
+                                letterSpacing: 2,
+                                color: Colors.black)),
+                        style: OutlinedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(horizontal: 50),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20))),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -146,12 +140,7 @@ class _DetailPageState extends State<DetailPage> {
 
                           if (newName.isNotEmpty && newEmail.isNotEmpty) {
                             dbService.updateEmployee(
-                                id,
-                               newName,
-                               newEmail,
-                               newNumber,
-                               context
-                            );
+                                id, newName, newEmail, newNumber, context);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -161,24 +150,17 @@ class _DetailPageState extends State<DetailPage> {
                             );
                           }
                         },
-                       child: Text("SAVE",style:TextStyle(
-                        fontSize:15,
-                        letterSpacing: 2,
-                        color: Colors.white
-
-
-                       )
-                       ),
-                       style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
-                        padding: EdgeInsets.symmetric(horizontal: 50),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
-                       ),
-                       )
-
-
-
-
+                        child: Text("SAVE",
+                            style: TextStyle(
+                                fontSize: 15,
+                                letterSpacing: 2,
+                                color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.blue,
+                            padding: EdgeInsets.symmetric(horizontal: 50),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20))),
+                      )
                     ]),
               ],
             ),
@@ -187,21 +169,19 @@ class _DetailPageState extends State<DetailPage> {
   }
 }
 
-Widget buildTextField(
-    String labelText,TextEditingController controller, String placehonder, bool isPasswordTextField) {
+Widget buildTextField(String labelText, TextEditingController controller,
+    String placehonder, bool isPasswordTextField) {
   bool isObscurePassword = true;
   return Padding(
     padding: EdgeInsets.only(bottom: 30),
     child: TextField(
-      controller: controller,
+        controller: controller,
         obscureText: isPasswordTextField ? isObscurePassword : false,
         decoration: InputDecoration(
             suffixIcon: isPasswordTextField
                 ? IconButton(
                     onPressed: () {
                       // setState((){ isObscurePassword = ! isObscurePassword;});
-                     
-
                     },
                     icon: Icon(Icons.remove_red_eye, color: Colors.grey))
                 : null,

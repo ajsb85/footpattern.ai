@@ -15,7 +15,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 // import 'package:slide_to_act/slide_to_act.dart';
 
-
 const rowDivider = SizedBox(width: 20);
 const colDivider = SizedBox(height: 10);
 const tinySpacing = 3.0;
@@ -423,8 +422,3 @@ class ButtonsWithIcon extends StatelessWidget {
     );
   }
 }
-
-
-
-  
-

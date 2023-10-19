@@ -20,14 +20,14 @@ const Widget divider = SizedBox(height: 10);
 // be displayed in a row.
 const double narrowScreenWidthThreshold = 100;
 TextEditingController nameController = TextEditingController();
-    late final GraphQLClient graphQLClient ;
+late final GraphQLClient graphQLClient;
+
 class ColorPalettesScreen extends StatelessWidget {
   const ColorPalettesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
-     final attendanceService = Provider.of<AttendanceService>(context);
+    final attendanceService = Provider.of<AttendanceService>(context);
     TextEditingController nameController = TextEditingController();
     final dbService = Provider.of<DbService>(context);
     dbService.allDepartments.isEmpty ? dbService.getAllDepartments() : null;
@@ -35,7 +35,7 @@ class ColorPalettesScreen extends StatelessWidget {
         ? nameController.text = dbService.userModel?.name ?? ''
         : null;
 
-    return  Expanded(
+    return Expanded(
       child: LayoutBuilder(builder: (context, constraints) {
         if (constraints.maxWidth < narrowScreenWidthThreshold) {
           return SingleChildScrollView(

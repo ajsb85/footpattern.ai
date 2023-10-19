@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-
-  final items = List<ListItem>.generate(
-    500,
-    (i) =>  MessageItem('Sender $i', 'Message body $i'),
-  );
+final items = List<ListItem>.generate(
+  500,
+  (i) => MessageItem('Sender $i', 'Message body $i'),
+);
 
 /// The base class for the different types of items the list can contain.
 abstract class ListItem {

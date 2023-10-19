@@ -54,9 +54,8 @@ class DbService extends ChangeNotifier {
   //     'Admin':false
   //   });
   // }
-Future insertNewUser(String email,String name ,var id ) async {
-  
-  MutationOptions options = MutationOptions(document: gql('''
+  Future insertNewUser(String email, String name, var id) async {
+    MutationOptions options = MutationOptions(document: gql('''
 mutation insetNewUser (\$UserEmail : String ,\$UserName: String \$UserId : UUID , \$employee :String){
   insertIntoemployeesCollection(
     objects:[
@@ -75,22 +74,20 @@ mutation insetNewUser (\$UserEmail : String ,\$UserName: String \$UserId : UUID 
     affectedCount
   }
 }
-'''),
-variables : <String , dynamic>{
-  'UserId':id,
-  'UserName':name,
-  'UserEmail':email,
-  'employee':generateRandomEmployeeId(),
-  
-}
-);
+'''), variables: <String, dynamic>{
+      'UserId': id,
+      'UserName': name,
+      'UserEmail': email,
+      'employee': generateRandomEmployeeId(),
+    });
     final QueryResult result = await client.mutate(options);
-    if (result.hasException){
+    if (result.hasException) {
       print(result.exception.toString());
-    }else {
+    } else {
       print('employee insert success');
     }
-}
+  }
+
   // Future<UserModel> getUserData() async {
   //   final userData = await _supabase
   //       .from(Constants.employeeTable)
@@ -148,7 +145,7 @@ variables : <String , dynamic>{
     }
   }
 
-Future<void> getAllDepartments() async {
+  Future<void> getAllDepartments() async {
     final List result =
         await _supabase.from(Constants.departmentTable).select();
     allDepartments = result
@@ -210,9 +207,9 @@ Future<void> getAllDepartments() async {
     }
   }
 
-// check user admin or not 
+// check user admin or not
   Future<bool> isAdmin() async {
-   final QueryOptions options = QueryOptions(document: gql('''
+    final QueryOptions options = QueryOptions(document: gql('''
     query selectAdmin(\$userId: UUID) {
       employeesCollection(
         first: 1
@@ -229,38 +226,36 @@ Future<void> getAllDepartments() async {
         }
       }
     }
-  '''),
-  variables: {
-    'userId': _supabase.auth.currentUser!.id,
-  });
+  '''), variables: {
+      'userId': _supabase.auth.currentUser!.id,
+    });
 
-  final QueryResult result = await client.query(options);
-  if (result.hasException) {
-    print(result.exception.toString());
-    return false; // Return false in case of an exception
-  } else {
-    print(_supabase.auth.currentUser!.id);
-    final data = result.data?['employeesCollection']['edges'] ?? [];
-   
+    final QueryResult result = await client.query(options);
+    if (result.hasException) {
+      print(result.exception.toString());
+      return false; // Return false in case of an exception
+    } else {
+      print(_supabase.auth.currentUser!.id);
+      final data = result.data?['employeesCollection']['edges'] ?? [];
+
       final edge = data[0];
       final admin = edge['node']['Admin'];
       print(admin);
-      
-    return admin;
-  
+
+      return admin;
+    }
   }
-}
 
   Future<bool> checkAdminStatus() async {
     final admin = await isAdmin();
-    print ('user is $admin');
-   if (admin== true)
-{
-  return true;
-}   else { 
-  return false;
-}
+    print('user is $admin');
+    if (admin == true) {
+      return true;
+    } else {
+      return false;
+    }
   }
+
 //get the employee data using graphql
   Future<void> fetchEmployees() async {
     final QueryOptions options = QueryOptions(
@@ -292,12 +287,13 @@ Future<void> getAllDepartments() async {
         final name = edge['node']['name'];
         final email = edge['node']['email'];
         final admin = edge['node']['Admin'];
-        final numero= edge['node']['numero'];
-        EmployeeModel employee =
-            EmployeeModel(id: id, name: name, email: email,numero:numero,admin:admin);
+        final numero = edge['node']['numero'];
+        EmployeeModel employee = EmployeeModel(
+            id: id, name: name, email: email, numero: numero, admin: admin);
         employeeList.add(employee);
 
-        print('Employee ID: $id, Name: $name, Email: $email, Number : $numero, Admin : $admin');
+        print(
+            'Employee ID: $id, Name: $name, Email: $email, Number : $numero, Admin : $admin');
       }
 
       allEmployees = employeeList;
@@ -318,12 +314,11 @@ Future<void> getAllDepartments() async {
         color: Colors.green);
     notifyListeners();
   }
+
 //update employee using graphql
-Future<void> updateEmployee(
-      String id, String name, String email,String numero, BuildContext context)async {
-        
-  final MutationOptions options = MutationOptions(
-    document: gql("""
+  Future<void> updateEmployee(String id, String name, String email,
+      String numero, BuildContext context) async {
+    final MutationOptions options = MutationOptions(document: gql("""
  mutation updateProfile(
     \$userId: UUID!
     \$newUsername: String!
@@ -344,51 +339,38 @@ Future<void> updateEmployee(
       }
     }
   }
-"""),
-variables: {
-  'userId':id,
-  'newUsername':name,
-  'newEmail': email,
-  'newNumber': numero
-}
-    );
+"""), variables: {
+      'userId': id,
+      'newUsername': name,
+      'newEmail': email,
+      'newNumber': numero
+    });
     final QueryResult result = await client.mutate(options);
-    if(result.hasException){
+    if (result.hasException) {
       print(result.exception.toString());
-    }else {
+    } else {
       print('employee $id modified');
-        Utils.showSnackBar("Successfully modify !", context,
-          color: Colors.green);
-      
+      Utils.showSnackBar("Successfully modify !", context, color: Colors.green);
     }
-}
- 
+  }
 
-
-  
-// delete employee using graphql 
+// delete employee using graphql
   Future<void> deleteEmployee(String id, BuildContext context) async {
- 
-    final MutationOptions options = MutationOptions(
-      document: gql('''
+    final MutationOptions options = MutationOptions(document: gql('''
  mutation DeleteEmployee(\$employeeID: UUIDFilter!) {
     deleteFromemployeesCollection(atMost: 1, filter: { id: { eq: \$employeeID } }) {
       affectedCount
     }
   }
-'''),
-variables: {
-  'employeeID':id
-});
-final QueryResult result = await client.mutate(options);
-if (result.hasException){
-  print(result.exception.toString());
+'''), variables: {'employeeID': id});
+    final QueryResult result = await client.mutate(options);
+    if (result.hasException) {
+      print(result.exception.toString());
+    } else {
+      print("employee : $id deleted");
 
-}else{
-  print("employee : $id deleted");
-  
       Utils.showSnackBar("Successfully deleted !", context,
           color: Colors.green);
-}
+    }
   }
 }

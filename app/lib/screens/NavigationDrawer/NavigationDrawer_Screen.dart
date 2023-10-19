@@ -32,7 +32,6 @@ class _NavigationDrawerSectionState extends State<NavigationDrawerSection> {
         ),
         ...destinations.map((destination) {
           return NavigationDrawerDestination(
-            
             label: Text(destination.label),
             icon: destination.icon,
             selectedIcon: destination.selectedIcon,
@@ -51,24 +50,19 @@ class _NavigationDrawerSectionState extends State<NavigationDrawerSection> {
             label: Text(destination.label),
             icon: destination.icon,
             selectedIcon: destination.selectedIcon,
-            
           );
         }),
-      const  SizedBox(height: 80),
+        const SizedBox(height: 80),
         Container(
-                              margin: const EdgeInsets.only(top: 20),
-                              alignment: Alignment.topRight,
-                              child: TextButton.icon(
-                                  onPressed: () {
-                                    Provider.of<AuthService>(context,
-                                            listen: false)
-                                        .signOut();
-                                  },
-                                  icon: const Icon(Icons.logout),
-                                  label: const Text("Sign Out")),
-                            ),
-
-      
+          margin: const EdgeInsets.only(top: 20),
+          alignment: Alignment.topRight,
+          child: TextButton.icon(
+              onPressed: () {
+                Provider.of<AuthService>(context, listen: false).signOut();
+              },
+              icon: const Icon(Icons.logout),
+              label: const Text("Sign Out")),
+        ),
       ],
     );
   }

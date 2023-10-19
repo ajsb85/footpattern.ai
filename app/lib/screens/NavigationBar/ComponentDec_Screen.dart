@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+
 const smallSpacing = 10.0;
 const double widthConstraint = 450;
+
 class ComponentDecoration extends StatefulWidget {
   const ComponentDecoration({
     super.key,

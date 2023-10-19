@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 late GraphQLClient client;
+
 class AttendanceService extends ChangeNotifier {
   final SupabaseClient _supabase = Supabase.instance.client;
   AttendanceModel? attendanceModel;
@@ -21,8 +23,9 @@ class AttendanceService extends ChangeNotifier {
     _isLoading = value;
     notifyListeners();
   }
-AttendanceService(){
-   // Initialize the GraphQLClient here
+
+  AttendanceService() {
+    // Initialize the GraphQLClient here
     final HttpLink httpLink = HttpLink(
       'https://xjusozytdfhffhmijmdx.supabase.co/graphql/v1',
       defaultHeaders: <String, String>{
@@ -35,7 +38,7 @@ AttendanceService(){
       link: httpLink,
       cache: GraphQLCache(),
     );
-}
+  }
   String _attendanceHistoryMonth =
       DateFormat('MMMM yyyy').format(DateTime.now());
 
@@ -57,7 +60,7 @@ AttendanceService(){
   //   }
   //   notifyListeners();
   // }
-Future<List<AttendanceModel>> getTodayAttendance() async {
+  Future<List<AttendanceModel>> getTodayAttendance() async {
     QueryOptions options = QueryOptions(
       document: gql('''
       query SelectAttendance(\$UserId: UUID, \$Date: StringFilter) {
@@ -88,36 +91,30 @@ Future<List<AttendanceModel>> getTodayAttendance() async {
     final QueryResult result = await client.query(options);
     if (result.hasException) {
       print(result.exception.toString());
-      
+
       return [];
     } else {
       final data = result.data?['attendanceCollection']['edges'] ?? [];
       List<AttendanceModel> attendanceList = [];
-      final edge= data[0];
-        final id = edge['node']['id'];
-        final date =
-            edge['node']['date']; 
-        final checkIn = 
-            edge['node']['check_in'];
-        final checkOut = 
-            edge['node']['check_out'];
-        final createdat = DateTime.parse(
-            edge['node']['created_at']); 
-        AttendanceModel attendance = AttendanceModel(
-          id: id,
-          date: date,
-          checkIn: checkIn,
-          checkOut: checkOut,
-          createdAt: createdat,
-        );
-        attendanceList.add(attendance);
-        print("rak m3allem");
-      
+      final edge = data[0];
+      final id = edge['node']['id'];
+      final date = edge['node']['date'];
+      final checkIn = edge['node']['check_in'];
+      final checkOut = edge['node']['check_out'];
+      final createdat = DateTime.parse(edge['node']['created_at']);
+      AttendanceModel attendance = AttendanceModel(
+        id: id,
+        date: date,
+        checkIn: checkIn,
+        checkOut: checkOut,
+        createdAt: createdat,
+      );
+      attendanceList.add(attendance);
+      print("rak m3allem");
+
       return attendanceList;
-      
     }
   }
-
 
   Future markAttendance(BuildContext context) async {
     Map? getLocation =

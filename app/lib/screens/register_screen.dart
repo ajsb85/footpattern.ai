@@ -41,12 +41,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     BorderRadius.only(bottomRight: Radius.circular(70))),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children:  [
-               Image.asset(
-                'lib/assets/logo.png',
-                width: 80,
-                height: 80,
-               ),
+              children: [
+                Image.asset(
+                  'lib/assets/logo.png',
+                  width: 80,
+                  height: 80,
+                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -97,7 +97,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     border: OutlineInputBorder(),
                   ),
                   controller: _nameController,
-                 
                 ),
                 const SizedBox(
                   height: 30,
@@ -112,32 +111,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               child: CircularProgressIndicator(),
                             )
                           : ElevatedButton(
-                             onPressed: () {
+                              onPressed: () {
                                 final email = _emailController.text.trim();
                                 final password =
                                     _passwordController.text.trim();
-                                    final name =
-                                    _nameController.text.trim();
+                                final name = _nameController.text.trim();
 
-
-                                if (email.isEmpty || password.isEmpty|| name.isEmpty) {
-                                      Utils.showSnackBar(
+                                if (email.isEmpty ||
+                                    password.isEmpty ||
+                                    name.isEmpty) {
+                                  Utils.showSnackBar(
                                       "Email and password are required.",
                                       context,
                                       color: Colors.red);
                                 } else {
                                   authServiceProvider.registerEmployee(
-                                      email, password,name,context);
+                                      email, password, name, context);
                                 }
                               },
-
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.indigo,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30))),
                               child: const Text(
                                 "REGISTER",
-                                style: TextStyle(fontSize: 20,color: Colors.white),
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white),
                               ),
                             ),
                     );

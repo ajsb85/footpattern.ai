@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:employee_flutter/services/widget.dart';
 import 'package:permission_handler/permission_handler.dart';
+
 final snackBarKeyA = GlobalKey<ScaffoldMessengerState>();
 final snackBarKeyB = GlobalKey<ScaffoldMessengerState>();
 final snackBarKeyC = GlobalKey<ScaffoldMessengerState>();
@@ -41,10 +42,10 @@ class BluetoothOffScreen extends StatelessWidget {
                   child: const Text('TURN ON'),
                   onPressed: () async {
                     PermissionStatus status =
-                       await Permission.bluetooth.request();
-                        if(status.isDenied){
-                          // The permission was denied.
-                     showDialog(
+                        await Permission.bluetooth.request();
+                    if (status.isDenied) {
+                      // The permission was denied.
+                      showDialog(
                         context: context,
                         builder: (ctx) => AlertDialog(
                           title: const Text("Bluetooth Permission"),
@@ -66,9 +67,7 @@ class BluetoothOffScreen extends StatelessWidget {
                           ],
                         ),
                       );
-
-                        }else if (status.isGranted){
-                          
+                    } else if (status.isGranted) {
                       try {
                         if (Platform.isAndroid) {
                           await FlutterBluePlus.turnOn();
@@ -79,8 +78,7 @@ class BluetoothOffScreen extends StatelessWidget {
                         snackBarKeyA.currentState?.removeCurrentSnackBar();
                         snackBarKeyA.currentState?.showSnackBar(snackBar);
                       }
-                        }
-
+                    }
                   },
                 ),
             ],

@@ -7,15 +7,15 @@ class AttendanceModel {
   final Map? checkInLocation;
   final Map? checkOutLocation;
 
-  AttendanceModel(
-      {required this.id,
-      required this.date,
-      required this.checkIn,
-      this.checkOut,
-      required this.createdAt,
-      this.checkInLocation,
-      this.checkOutLocation, 
-     });
+  AttendanceModel({
+    required this.id,
+    required this.date,
+    required this.checkIn,
+    this.checkOut,
+    required this.createdAt,
+    this.checkInLocation,
+    this.checkOutLocation,
+  });
 
   factory AttendanceModel.fromJson(Map<String, dynamic> data) {
     return AttendanceModel(

@@ -51,6 +51,7 @@ class Home extends StatefulWidget {
   @override
   State<Home> createState() => _HomeState();
 }
+
 DbService dbService = DbService();
 
 Future<bool> isAdmin() async {
@@ -146,7 +147,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         case ScreenSelected.typography:
           return const ProfileScreen();
         // case ScreenSelected.color:
-          // return const ProfileScreen();
+        // return const ProfileScreen();
       }
     }
   }
@@ -158,7 +159,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         width: 60,
         height: 60,
       ),
-      
     );
   }
 
@@ -236,7 +236,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 }
-
 
 class _ExpandedTrailingActions extends StatelessWidget {
   const _ExpandedTrailingActions({
