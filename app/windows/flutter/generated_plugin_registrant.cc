@@ -14,16 +14,16 @@
 #include <url_launcher_windows/url_launcher_windows.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
-  AppLinksPluginCApiRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("AppLinksPluginCApi"));
-  ConnectivityPlusWindowsPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("ConnectivityPlusWindowsPlugin"));
-  FlutterBlePeripheralPluginCApiRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("FlutterBlePeripheralPluginCApi"));
-  LocalAuthPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("LocalAuthPlugin"));
-  PermissionHandlerWindowsPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("PermissionHandlerWindowsPlugin"));
-  UrlLauncherWindowsRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("UrlLauncherWindows"));
+    AppLinksPluginCApiRegisterWithRegistrar(
+        registry->GetRegistrarForPlugin("AppLinksPluginCApi"));
+    ConnectivityPlusWindowsPluginRegisterWithRegistrar(
+        registry->GetRegistrarForPlugin("ConnectivityPlusWindowsPlugin"));
+    FlutterBlePeripheralPluginCApiRegisterWithRegistrar(
+        registry->GetRegistrarForPlugin("FlutterBlePeripheralPluginCApi"));
+    LocalAuthPluginRegisterWithRegistrar(
+        registry->GetRegistrarForPlugin("LocalAuthPlugin"));
+    PermissionHandlerWindowsPluginRegisterWithRegistrar(
+        registry->GetRegistrarForPlugin("PermissionHandlerWindowsPlugin"));
+    UrlLauncherWindowsRegisterWithRegistrar(
+        registry->GetRegistrarForPlugin("UrlLauncherWindows"));
 }
