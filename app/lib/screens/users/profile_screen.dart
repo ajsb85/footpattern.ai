@@ -24,7 +24,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     
     final dbService = Provider.of<DbService>(context);
-    dbService.allDepartments.isEmpty ? dbService.getAllDepartments() : null;
+    dbService.allDepartments.isEmpty ? dbService.fetchDepartments() : null;
     nameController.text.isEmpty
         ? nameController.text = dbService.userModel?.name ?? ''
         : null;
@@ -74,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
                               height: 15,
                             ),
                             Text(
-                                "Employee ID : ${dbService.userModel?.employeeId}"),
+                                "Admin : ${dbService.userModel?.employeeId}"),
                             const SizedBox(
                               height: 30,
                             ),
@@ -108,20 +108,20 @@ class ProfileScreen extends StatelessWidget {
                                       }).toList(),
                                       onChanged: (selectedValue) {
                                         dbService.employeeDepartment =
-                                            selectedValue;
+                                            selectedValue as int?;
                                       },
                                     ),
                                   ),
                             const SizedBox(
                               height: 30,
                             ),
+  
                             SizedBox(
                               width: 200,
                               height: 50,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  dbService.updateProfile(
-                                      nameController.text.trim(), context);
+                             dbService.updateProfile(nameController.text.trim(), context);
                                 },
                                 child: const Text(
                                   "Update Profile",

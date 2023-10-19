@@ -21,7 +21,7 @@ enum ColorSelectionMethod {
 }
 
 enum ColorSeed {
-  baseColor('M3 Baseline', Color(0xff6750a4)),
+  baseColor('Indigo', Colors.indigo),
   indigo('Indigo', Colors.indigo),
   blue('Blue', Colors.blue),
   teal('Teal', Colors.teal),
@@ -54,14 +54,31 @@ enum ColorImageProvider {
   final String label;
   final String url;
 }
+bool isAdmin = true;
 
 enum ScreenSelected {
-  component(1),
-  color(0),
-  typography(2);
+  
+  users(1),
+  component(0),
+  typography(2),
+  // color(3)
+
+  ;
+
   
  
 
   const ScreenSelected(this.value);
+  final int value;
+}
+enum ScreenSelected2 {
+  users(0),
+  component(3),
+  color(1),
+  typography(2),
+
+  ;
+
+  const ScreenSelected2(this.value);
   final int value;
 }

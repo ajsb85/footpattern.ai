@@ -48,6 +48,25 @@ dependencies:
   slider_button: ^2.0.0
   location: ^5.0.3
   local_auth: ^2.1.7
+  data_table_2: ^2.5.8
+  scrollable_table_view: ^2.0.2
+  editable: ^2.0.0
+  http: ^1.1.0
+  syncfusion_flutter_datagrid: ^22.2.12
+  flutter_blue_plus: ^1.15.7
+  permission_handler: ^11.0.1
+  get: ^4.6.6
+  flutter_dialogs: ^3.0.0
+  flutter_ble_peripheral: ^1.2.1
+  esptouch_flutter: ^1.0.0
+  wifi_info_flutter: ^2.0.2
+  wifi_scan: ^0.4.0+2
+  graphql: ^5.2.0-beta.6
+  graphql_flutter: ^5.2.0-beta.5
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  fl_chart: ^0.64.0
+
  
 
 dev_dependencies:
@@ -75,6 +94,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - .env
+    - lib/assets/logo.png
+    - assets/row/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
