@@ -40,7 +40,7 @@ dependencies:
   provider: ^6.0.5
   font_awesome_flutter: ^10.5.0
   slide_to_act: ^2.0.1
-  intl: ^0.18.1
+  intl: ^0.19.0
   simple_month_year_picker: ^1.0.5
   flutter_slidable: ^3.0.0
   gradient_slide_to_act: ^0.0.2
