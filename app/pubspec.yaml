@@ -45,7 +45,7 @@ dependencies:
   flutter_slidable: ^3.0.0
   gradient_slide_to_act: ^0.0.2
   slider_button: ^2.0.0
-  location: ^5.0.3
+  location: ^7.0.0
   local_auth: ^2.1.7
   data_table_2: ^2.5.8
   scrollable_table_view: ^2.0.2
