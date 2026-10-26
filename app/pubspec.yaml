@@ -42,7 +42,7 @@ dependencies:
   slide_to_act: ^2.0.1
   intl: ^0.18.1
   simple_month_year_picker: ^1.0.5
-  flutter_slidable: ^3.0.0
+  flutter_slidable: ^4.0.0
   gradient_slide_to_act: ^0.0.2
   slider_button: ^2.0.0
   location: ^5.0.3
