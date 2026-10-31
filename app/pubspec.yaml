@@ -59,7 +59,7 @@ dependencies:
   flutter_ble_peripheral: ^1.2.1
   esptouch_flutter: ^1.0.0
   wifi_info_flutter: ^2.0.2
-  wifi_scan: ^0.4.0+2
+  wifi_scan: ^0.5.0
   graphql: ^5.2.0-beta.6
   graphql_flutter: ^5.2.0-beta.5
   hive: ^2.2.3
